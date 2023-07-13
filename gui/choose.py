@@ -32,7 +32,8 @@ def choose_view(page: Page):
             change_all_button(False)
             return res
         except Exception:
-            print("E: 运行函数时出现错误")
+            # print("E: 运行函数时出现错误")
+            print("E: An error occurred while running the function")
             traceback.print_exc()
         finally:
             change_all_button(False)
@@ -44,16 +45,20 @@ def choose_view(page: Page):
             page.first=0
             page.dialog.open = False
             page.update()
-        show_snack_bar(page, "开始校准，请切换回游戏（¬､¬）", ft.colors.GREEN)
+        # show_snack_bar(page, "开始校准，请切换回游戏（¬､¬）", ft.colors.GREEN)
+        show_snack_bar(page, "Start calibration, please switch back to the game（¬､¬）", ft.colors.GREEN)
         res = run(align_angle)
         if res == 1:
-            show_snack_bar(page, "校准成功（＾∀＾●）", ft.colors.GREEN)
+            # show_snack_bar(page, "校准成功（＾∀＾●）", ft.colors.GREEN)
+            show_snack_bar(page, "Calibration successful（＾∀＾●）", ft.colors.GREEN)
         else:
-            show_snack_bar(page, "校准失败（⊙.⊙）", ft.colors.RED)
+            # show_snack_bar(page, "校准失败（⊙.⊙）", ft.colors.RED)
+            show_snack_bar(page, "Calibration failed（⊙.⊙）", ft.colors.RED)
 
     def start(_e):
         if config.angle == "1.0":
-            show_snack_bar(page, "没有校准,不准运行（￣^￣）", ft.colors.RED)
+            # show_snack_bar(page, "没有校准,不准运行（￣^￣）", ft.colors.RED)
+            show_snack_bar(page, "Do not run without calibration（￣^￣）", ft.colors.RED)
             return
         if config.angle == "1.0" or page.first==1:
             go_about()
@@ -61,7 +66,8 @@ def choose_view(page: Page):
             page.first=0
             page.dialog.open = False
             page.update()
-        show_snack_bar(page, "开始运行，请切换回游戏（＾∀＾●）", ft.colors.GREEN)
+        # show_snack_bar(page, "开始运行，请切换回游戏（＾∀＾●）", ft.colors.GREEN)
+        show_snack_bar(page, "Start running, please switch back to the game（＾∀＾●）", ft.colors.GREEN)
         tm = time.time()
         print(page.bonus)
         page.su = run(
@@ -78,10 +84,12 @@ def choose_view(page: Page):
         #if time.time()-tm<20:
         #    go_dep()
         #    txt = "请确认python+numpy已安装并正确配置环境变量"
-        notif('已退出自动化',txt)
+        # notif('已退出自动化',txt)
+        notif('Automated out',txt)
 
     def start_new(_e):
-        show_snack_bar(page, "开始录入，请切换回游戏（≖‿≖✧）", ft.colors.GREEN)
+        # show_snack_bar(page, "开始录入，请切换回游戏（≖‿≖✧）", ft.colors.GREEN)
+        show_snack_bar(page, "Start recording, please switch back to the game（≖‿≖✧）", ft.colors.GREEN)
         page.su = run(
             SimulatedUniverse,
             0,
@@ -94,23 +102,27 @@ def choose_view(page: Page):
         run(page.su.start)
 
     def stops(_e):
-        show_snack_bar(page, "停止运行（>∀<）", ft.colors.GREEN)
+        # show_snack_bar(page, "停止运行（>∀<）", ft.colors.GREEN)
+        show_snack_bar(page, "out of service（>∀<）", ft.colors.GREEN)
         if page.su is not None:
             run(page.su.stop)
 
     def hide(_e):
         try:
             if win32gui.IsWindowVisible(mynd):
-                show_snack_bar(page, "隐藏命令行窗口", ft.colors.GREEN)
+                # show_snack_bar(page, "隐藏命令行窗口", ft.colors.GREEN)
+                show_snack_bar(page, "Hide the command line window", ft.colors.GREEN)
                 win32gui.ShowWindow(mynd, 0)  # 隐藏命令行窗口
             else:
-                show_snack_bar(page, "显示命令行窗口", ft.colors.GREEN)
+                # show_snack_bar(page, "显示命令行窗口", ft.colors.GREEN)
+                show_snack_bar(page, "show command window", ft.colors.GREEN)
                 win32gui.ShowWindow(mynd, 1)  # 显示命令行窗口
         except:
             pass
 
     def update_maps(_e):
-        show_snack_bar(page, "开始更新地图（´・н・‘）", ft.colors.GREEN)
+        # show_snack_bar(page, "开始更新地图（´・н・‘）", ft.colors.GREEN)
+        show_snack_bar(page, "Start updating the map（´・н・‘）", ft.colors.GREEN)
         msg, col = update_map(config.force_update)
         show_snack_bar(page, msg, col)
 
@@ -118,10 +130,16 @@ def choose_view(page: Page):
         page.go("/config")
 
     def go_about(e=None):
+        # dlg = ft.AlertDialog(
+        #     title=ft.Text("此程序为免费开源项目，如果你付了钱请立刻退款！"),
+        #     content=ft.Text(
+        #         "倒卖可耻，请退款并举报商家！\n链接：https://github.com/CHNZYX/Auto_Simulated_Universe\n群号：831830526"
+        #     ),
+        # )
         dlg = ft.AlertDialog(
-            title=ft.Text("此程序为免费开源项目，如果你付了钱请立刻退款！"),
+            title=ft.Text("This program is a free open source project, if you paid, please refund immediately！"),
             content=ft.Text(
-                "倒卖可耻，请退款并举报商家！\n链接：https://github.com/CHNZYX/Auto_Simulated_Universe\n群号：831830526"
+                "Reselling is shameful, please refund and report the merchant！\n链接：https://github.com/CHNZYX/Auto_Simulated_Universe\n群号：831830526"
             ),
         )
         page.dialog = dlg
@@ -129,17 +147,15 @@ def choose_view(page: Page):
         page.update()
 
     def go_money(e=None):
-        dlg = ft.AlertDialog(
-            title=ft.Text("送杯咖啡喵 QWQ"), content=ft.Image("imgs/money.jpg")
-        )
+        # dlg = ft.AlertDialog(title=ft.Text("送杯咖啡喵 QWQ"), content=ft.Image("imgs/money.jpg"))
+        dlg = ft.AlertDialog(title=ft.Text("send a cup of coffee meow QWQ"), content=ft.Image("imgs/money.jpg"))
         page.dialog = dlg
         dlg.open = True
         page.update()
 
     def go_dep(e=None):
-        dlg = ft.AlertDialog(
-            title=ft.Text("异常退出"), content=ft.Text("请确认python+numpy已安装并正确配置环境变量")
-        )
+        # dlg = ft.AlertDialog(title=ft.Text("异常退出"), content=ft.Text("请确认python+numpy已安装并正确配置环境变量"))
+        dlg = ft.AlertDialog(title=ft.Text("Abnormal exit"), content=ft.Text("please confirm python+numpy Installed and properly configured environment variables"))
         page.dialog = dlg
         dlg.open = True
         page.update()
@@ -149,10 +165,10 @@ def choose_view(page: Page):
         time.sleep(3)
         page.dialog.open = False
         page.update()
-        show_snack_bar(page, "稍后解锁限制，赞助页面在右下角按钮~o( =∩ω∩= )m", ft.colors.GREEN)
+        show_snack_bar(page, "Unlock the restrictions later, the sponsorship page has a button in the lower right corner~o( =∩ω∩= )m", ft.colors.GREEN)
         time.sleep(7)
         config.unlock = 1
-        show_snack_bar(page, "已临时解锁限制o(*￣▽￣*)ブ", ft.colors.GREEN)
+        show_snack_bar(page, "Restrictions temporarily unlocked o(*￣▽￣*)ブ", ft.colors.GREEN)
 
     def bonus_changed(e):
         page.bonus = not page.bonus

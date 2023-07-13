@@ -23,7 +23,8 @@ pyautogui.FAILSAFE=False
 
 
 def notif(title,msg,cnt=None):
-    log.info('通知：'+msg+'  '+title)
+    # log.info('通知：'+msg+'  '+title)
+    log.info('notify：'+msg+'  '+title)
     if cnt is not None:
         tm=str(time.time())
     else:
