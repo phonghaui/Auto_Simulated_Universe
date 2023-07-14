@@ -52,6 +52,13 @@ def notif(title,msg,cnt=None):
 def set_forground():
     config.read()
     try:
+        # show all window
+        # def winEnumHandler(hwnd, ctx):
+        #     if win32gui.IsWindowVisible(hwnd):
+        #         print(hex(hwnd), win32gui.GetWindowText(hwnd))
+        #
+        # win32gui.EnumWindows(winEnumHandler, None)
+
         pythoncom.CoInitialize()
         shell = win32com.client.Dispatch("WScript.Shell")
         shell.SendKeys(" ")  # Undocks my focus from Python IDLE
@@ -84,7 +91,8 @@ class UniverseUtils:
             self.opt = 1
         self.debug, self.find = 0, 1
         self.bx, self.by = 1920, 1080
-        log.warning("等待游戏窗口")
+        # log.warning("等待游戏窗口")
+        log.warning("wait game window")
         self.tss = 'ey.jpg'
         while True:
             try:
